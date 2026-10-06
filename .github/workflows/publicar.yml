@@ -1,0 +1,31 @@
+name: Publicar gerador limpo
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obter site aprovado
+        run: |
+          git clone --depth 1 https://github.com/marinamartinsquimica-beep/gerador-etiqueta-40x30.git fonte
+          mkdir _site
+          cp fonte/index.html fonte/app.js fonte/calibracao.js fonte/styles.css fonte/theme-raiar.css fonte/label-sizes.css fonte/ajuste-v1.1.16.css fonte/ajuste-v1.1.18.css fonte/ajuste-v1.1.19.css fonte/ajuste-v1.1.21.css fonte/ajuste-v1.1.22.css fonte/ajuste-v1.1.24.css fonte/ajuste-v1.1.25.css fonte/manifest.webmanifest fonte/version.json _site/
+          cp -R fonte/vendor fonte/icons _site/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
