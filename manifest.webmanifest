@@ -1,0 +1,12 @@
+{
+  "name": "Gerador de Etiqueta Data Matrix",
+  "short_name": "Etiquetas",
+  "description": "Gerador de etiquetas Data Matrix para Zebra ZD220t",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#254D69",
+  "orientation": "any",
+  "lang": "pt-BR"
+}
